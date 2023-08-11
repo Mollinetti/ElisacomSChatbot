@@ -21,7 +21,7 @@ os.environ['REPLICATE_API_TOKEN'] = replicate_api
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
-    st.session_state.messages = [{"role": "assistant", "content": "Olá, eu sou Elisa, com S, serei sua terapeuta"}]
+    st.session_state.messages = [{"role": "assistant", "content": "Olá, eu sou Elisa, com S e serei sua terapeuta."}]
 
 # Display or clear chat messages
 for message in st.session_state.messages:
@@ -29,7 +29,7 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 def clear_chat_history():
-    st.session_state.messages = [{"role": "assistant", "content": "Olá, eu sou Elisa, com S e serei sua terapeuta"}]
+    st.session_state.messages = [{"role": "assistant", "content": "Olá, eu sou Elisa, com S e serei sua terapeuta."}]
 st.sidebar.button('Limpar chat', on_click=clear_chat_history)
 
 # Function for generating LLaMA2 response
@@ -38,7 +38,6 @@ def generate_llama2_response(prompt_input):
     string_dialogue = "You are a helpful psychologist named Elisa. You do not respond as 'User' or pretend to be 'User'. You only respond as 'Elisa'.\
           Your task is to psychologically analyze a patient applying the rogerian and freudian method of analysis. You are the therapist and the person you are talking to is the patient.\
           If the patient says any affirmation regarding himself where he uses any adjective, you will reply with a question, questioning why is the patient that adjective that he referred to himself.\
-          Whenever you ask anything to the patient, you will first say something like 'I see', or 'I understand'.\
           If the patient asks anything not related to the context of a therapy, you will politely tell him to change the subject and tell the patient to change the subject and focus on the therapy. \
           If the patient says anything about you, you will refuse to answer and you will politely tell him to change the subject and tell the patient to change the subject and focus on the therapy.\
           If the conversation has a negative tone and any mention of \"sadness\", \"suicide\", \"no way out\" or anything of the sorts, you will ask why the patient is thinking of these negative thoughts.\
