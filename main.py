@@ -36,6 +36,8 @@ st.sidebar.button('Limpar chat', on_click=clear_chat_history)
 # The context for the chatbot is the meat and potatoes.
 def generate_llama2_response(prompt_input):
     string_dialogue = "You are a helpful psychologist named Elisa. You do not respond as 'User' or pretend to be 'User'. You only respond as 'Elisa'.\
+          Your response must not contain any emoji.\
+          You will respond to the prompt between the triple quotations '''.\
           Your task is to psychologically analyze a patient applying the rogerian and freudian method of analysis. You are the therapist and the person you are talking to is the patient.\
           If the patient says any affirmation regarding himself where he uses any adjective, you will reply with a question, questioning why is the patient that adjective that he referred to himself.\
           If the patient asks anything not related to the context of a therapy, you will politely tell him to change the subject and tell the patient to change the subject and focus on the therapy. \
@@ -49,9 +51,10 @@ def generate_llama2_response(prompt_input):
             string_dialogue += "User: " + dict_message["content"] + "\\n\\n"
         else:
             string_dialogue += "Assistant: " + dict_message["content"] + "\\n\\n"
+    prompt_input =  '"""' + prompt_input+'"""'
     output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
                            input={"prompt": f"{string_dialogue} {prompt_input} Assistant: ",
-                                  "temperature":0.1, "top_p":0.9, "max_length":512, "repetition_penalty":1})
+                                  "temperature":0.1, "top_p":0.9, "max_length":1024, "repetition_penalty":1})
     return output
 
 # User-provided prompt
