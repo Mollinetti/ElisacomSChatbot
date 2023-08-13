@@ -57,11 +57,11 @@ def generate_llama2_response(prompt_input):
                                   "temperature":0.1, "top_p":0.9, "max_length":1024, "repetition_penalty":1})
     return output
 
-
+#If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information
 # Function for generating LLaMA2 response
 # The context for the chatbot is the meat and potatoes.
 def generate_llama2_response_complex(prompt_input):
-    string_dialogue = "You are a helpful assistant. Your task is to do a sentiment analysis of the prompt, your response will be either \"neutral\", \"negative\" or \"positive\" and nothing else. The prompt is written in Brazilian portuguese. The prompt is:"
+    string_dialogue = "You are a helpful assistant. Your task is to do a sentiment analysis of the user input. Your response is either \"Neutral\", \"Negative\" or \"Positive\" and nothing else. If the input does not make sense, output as \"Neutral\""
     # string_dialogue = "You are a helpful psychologist named Elisa. You do not respond as 'User' or pretend to be 'User'. You only respond as 'Elisa'.\
     #       Your response must not contain any emoji.\
     #       You will respond to the whatever is between the triple quotations '''.\
@@ -78,8 +78,8 @@ def generate_llama2_response_complex(prompt_input):
             string_dialogue += "User: " + dict_message["content"] + "\\n\\n"
         else:
             string_dialogue += "Assistant: " + dict_message["content"] + "\\n\\n"
-    answer_type = replicate.run('replicate/llama-2-7b:acdbe5a4987a29261ba7d7d4195ad4fa6b62ce27b034f989fcb9ab0421408a7c', 
-                           input={"prompt": f"{string_dialogue} {prompt_input} \\n\\n Assistant:",
+    answer_type = replicate.run('a16z-infra/llama-2-13b-chat:2a7f981751ec7fdf87b5b91ad4db53683a98082e9ff7bfd12c8cd5ea85980a52', 
+                           input={"prompt": f"{string_dialogue} {prompt_input} Assistant:",
                                   "temperature":0.05, "top_p":0.9, "max_length":1024, "repetition_penalty":1})
     
 
