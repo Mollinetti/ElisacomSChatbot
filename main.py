@@ -61,8 +61,7 @@ def generate_llama2_response(prompt_input):
 # Function for generating LLaMA2 response
 # The context for the chatbot is the meat and potatoes.
 def generate_llama2_response_complex(prompt_input):
-    string_dialogue  = "Your task is to analyze the input between the triple quotes whether if it is an affirmation or a question, your output will be either affirmation or question. The input is written in Brazilian portuguese."
-    sentiment_str = "Your task is to  do a sentiment analysis of whatever is between the triple quotes \""" , your output can only be neutral, negative or positive. The input is written in Brazilian portuguese."
+    string_dialogue = "Your task is to  do a sentiment analysis of whatever is between the triple quotes \""" , you will respond with \"neutral\", \"negative\" or \"positive\". The input is written in Brazilian portuguese."
     # string_dialogue = "You are a helpful psychologist named Elisa. You do not respond as 'User' or pretend to be 'User'. You only respond as 'Elisa'.\
     #       Your response must not contain any emoji.\
     #       You will respond to the whatever is between the triple quotations '''.\
