@@ -79,7 +79,7 @@ def generate_llama2_response_complex(prompt_input):
         else:
             string_dialogue += "Assistant: " + dict_message["content"] + "\\n\\n"
     answer_type = replicate.run('replicate/llama-2-7b:acdbe5a4987a29261ba7d7d4195ad4fa6b62ce27b034f989fcb9ab0421408a7c', 
-                           input={"prompt": f"{string_dialogue} '''{prompt_input}'''.",
+                           input={"prompt": f"{string_dialogue} '''{prompt_input}'''. Assistant:",
                                   "temperature":0.05, "top_p":0.9, "max_length":1024, "repetition_penalty":1})
     
 
