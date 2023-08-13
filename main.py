@@ -61,7 +61,7 @@ def generate_llama2_response(prompt_input):
 # Function for generating LLaMA2 response
 # The context for the chatbot is the meat and potatoes.
 def generate_llama2_response_complex(prompt_input):
-    string_dialogue = "You are a helpful assistant. Your task is to  do a sentiment analysis of whatever is written between the ''' , your response will be either \"neutral\", \"negative\" or \"positive\" and nothing else more. The input is written in Brazilian portuguese."
+    string_dialogue = "You are a helpful assistant. Your task is to  do a sentiment analysis of the prompt written between the ''' , your response will be either \"neutral\", \"negative\" or \"positive\" and nothing else more. The input is written in Brazilian portuguese. The prompt input is:"
     # string_dialogue = "You are a helpful psychologist named Elisa. You do not respond as 'User' or pretend to be 'User'. You only respond as 'Elisa'.\
     #       Your response must not contain any emoji.\
     #       You will respond to the whatever is between the triple quotations '''.\
@@ -79,7 +79,7 @@ def generate_llama2_response_complex(prompt_input):
         else:
             string_dialogue += "Assistant: " + dict_message["content"] + "\\n\\n"
     prompt_input =  "'''" + prompt_input+ "'''"
-    answer_type = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
+    answer_type = replicate.run('replicate/llama-2-7b:acdbe5a4987a29261ba7d7d4195ad4fa6b62ce27b034f989fcb9ab0421408a7c', 
                            input={"prompt": f"{string_dialogue} {prompt_input}",
                                   "temperature":0.05, "top_p":0.9, "max_length":1024, "repetition_penalty":1})
     
