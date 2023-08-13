@@ -61,7 +61,7 @@ def generate_llama2_response(prompt_input):
 # Function for generating LLaMA2 response
 # The context for the chatbot is the meat and potatoes.
 def generate_llama2_response_complex(prompt_input):
-    string_dialogue = "You are a helpful assistant. Your task is to do a sentiment analysis of the user input which is delimited between the '''. Your response is either \"Neutral\", \"Negative\" or \"Positive\" and nothing else. If the input does not make sense, output as \"Neutral\". The user input is:"
+    string_dialogue = "You are a helpful assistant. Your task is to do a sentiment analysis of the user input which is written in Brazilian portuguese. Your response will be either \"Neutral\", \"Negative\" or \"Positive\" and nothing else. If the user input does not make sense, output as \"Neutral\"."
     # string_dialogue = "You are a helpful psychologist named Elisa. You do not respond as 'User' or pretend to be 'User'. You only respond as 'Elisa'.\
     #       Your response must not contain any emoji.\
     #       You will respond to the whatever is between the triple quotations '''.\
@@ -75,9 +75,9 @@ def generate_llama2_response_complex(prompt_input):
     #       The patient writes in brazilian portuguese, you accept inputs in that language and respond back to the patient in brazilian portuguese."
     for dict_message in st.session_state.messages:
         if dict_message["role"] == "user":
-            string_dialogue += "User: " + dict_message["content"] + "\n"
+            string_dialogue += "User: " + dict_message["content"] + "\\n\\n"
         else:
-            string_dialogue += "Assistant: " + dict_message["content"] + "\n"
+            string_dialogue += "Assistant: " + dict_message["content"] + "\\n\\n"
     prompt_input= "'''" + prompt_input + "'''"
     answer_type = replicate.run('a16z-infra/llama-2-13b-chat:2a7f981751ec7fdf87b5b91ad4db53683a98082e9ff7bfd12c8cd5ea85980a52', 
                            input={"prompt": f"{string_dialogue} {prompt_input} Assistant:",
